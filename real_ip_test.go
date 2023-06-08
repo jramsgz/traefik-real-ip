@@ -37,7 +37,7 @@ func TestNew(t *testing.T) {
 			header:        "X-Forwarded-For",
 			desc:          "forward",
 			xForwardedFor: "10.0.0.1",
-			expected:      "10.0.0.1",
+			expected:      "",
 		},
 		{
 			header:        "Cf-Connecting-Ip",
