@@ -65,14 +65,12 @@ func (r *RealIPOverWriter) ServeHTTP(rw http.ResponseWriter, req *http.Request) 
 		}
 	}
 
-        // Use `Cf-Connecting-Ip` when available
+        // Use `Cf-Connecting-Ip` when available, otherwise use X-Real-Ip if available
         if req.Header.Get(cfConnectingIP) != "" {
                 realIP = req.Header.Get(cfConnectingIP)
                 req.Header.Set(xForwardedFor, realIP)
                 req.Header.Set(xRealIP, realIP)
-        }
-
-        if req.Header.Get(xRealIP) == "" {
+        } else if req.Header.Get(xRealIP) == "" {
                 realIP = req.RemoteAddr
                 req.Header.Set(xRealIP, realIP)
         }
